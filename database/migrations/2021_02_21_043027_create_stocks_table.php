@@ -14,11 +14,14 @@ class CreateStocksTable extends Migration
     public function up()
     {
         Schema::create('stocks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->date('date');
-            $table->string('operation');
-            $table->integer('quantity');
+            $table->id();
+            $table->string('type');
+            $table->foreignId('item_id')->index();
+            $table->dateTime('stock_date');
+            $table->bigInteger('quantity');
+            $table->foreignId('related_id')->nullable()->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -14,11 +14,13 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-            $table->increments('id');
-            $table->date('date');
-            $table->integer('quantity');
-            $table->integer('price')->default(0);
+            $table->id();
+            $table->foreignId('item_id')->index();
+            $table->dateTime('sale_date');
+            $table->bigInteger('quantity');
+            $table->decimal('price')->default(0.00);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
