@@ -16,7 +16,7 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->index();
-            $table->date('purchase_date');
+            $table->dateTime('purchase_date');
             $table->bigInteger('quantity');
             $table->decimal('cost')->default(0.00);
             $table->timestamps();
