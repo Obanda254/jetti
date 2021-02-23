@@ -11,7 +11,7 @@ class Item extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public $fillable = ['name'];
+    protected $fillable = ['name'];
 
     // action on delete of record
     protected $dates = ['deleted_at'];
