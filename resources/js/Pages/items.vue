@@ -16,8 +16,6 @@
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             
-                            <button @click="openModal()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Create New Item</button>
-                            
                             <table class="table-fixed w-full">
                             <thead class="bg-gray-50">
                                 <tr>
@@ -83,6 +81,35 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <button @click="openModal()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 m-auto">Create New Item</button>
+            <!-- Modal -->
+            <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add a new Item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <form id="itemForm" @submit.prevent="addItem">
+                                    <div class="form-group">
+                                        <label for="name">Item Name</label>
+                                        <input type="text" v-model="item.name" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="Enter item Name">
+                                        <small id="helpId" class="form-text text-muted">Enter the full name of the item</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
     </app-layout>
 </template>
 
