@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,18 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-         
-        return Items::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Item::all();
     }
 
     /**
@@ -35,7 +25,15 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $item = new item();
+        $item->name =$request->name;
+        $item->save();
+
+        return response('Succssfully created a new item', 201);
     }
 
     /**
@@ -46,18 +44,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Item::find($id);
     }
 
     /**
@@ -69,7 +56,15 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $item = Item::find($id);
+        $item->name =$request->name;
+        $item->save();
+
+        return response('Succssfully updated an item', 201);
     }
 
     /**
@@ -80,6 +75,8 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Item::find($id)->delete();
+
+        return response('Succssfully Deleted an Item', 200);
     }
 }
