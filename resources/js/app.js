@@ -4,6 +4,15 @@ require('./bootstrap');
 import { createApp, h } from 'vue';
 import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
 
+const Swal = require('sweetalert2').default
+
+window.Toast = Swal.mixin({
+	toast: true,
+	position: 'top-right',
+	timer: 3500,
+	timerProgressBar: true
+})
+
 const el = document.getElementById('app');
 
 createApp({

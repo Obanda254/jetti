@@ -37,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
+                                <tr v-for="x in items" :key="x.id">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">
-                                        Jane Cooper
+                                        {{ x.name }}
                                         </div>
                                         <div class="text-sm text-gray-500">
                                         jane.cooper@example.com
@@ -83,9 +83,9 @@
         </div>
 
         <template #footer>
-            <button @click="openModal()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 m-auto">Create New Item</button>
+            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 m-auto" data-toggle="modal" data-target="#addItem">Create New Item</button>
             <!-- Modal -->
-            <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!-- <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </template>
     </app-layout>
 </template>
@@ -122,5 +122,33 @@
             AppLayout,
             Welcome,
         },
+        data(){
+            return{
+                items:[],
+                item:{
+                    name:''
+                }
+            }
+        },
+        methods:{
+            async addItem(){
+                const res = await axios.post('/api/items', this.item)
+
+                if(res.status === 201) {
+                    Toast.fire({
+                        icon:'success',
+                        title:res.data
+                    })
+                }
+            },
+            getItems(){
+                axios.get('/api/items')
+                .then((res) => {
+                    this.items = res.data
+                }).catch((err) => {
+                    console.log(err)
+                });
+            },
+        }
     }
 </script>
