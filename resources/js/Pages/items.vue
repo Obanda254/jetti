@@ -23,7 +23,7 @@
                                     Name
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Title
+                                    Date
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Status
@@ -52,7 +52,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Available
+                                    {{ x.created_at }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -130,6 +130,9 @@
                         icon:'success',
                         title:res.data
                     })
+                    document.getElementById('itemForm').reset()
+                    $("#addItem").modal('hide')
+                    Fire.$emit('addedItem')
                 }
             },
             getItems(){
@@ -140,6 +143,12 @@
                     console.log(err)
                 });
             },
+        },
+        created(){
+            this.getItems()
+            Fire.$on('addedItem', ()=>{
+                this.getItems()
+            })
         }
     }
 </script>

@@ -13,7 +13,11 @@ window.Toast = Swal.mixin({
 	timerProgressBar: true
 })
 
+window.Fire = new Vue()
+
 const el = document.getElementById('app');
+
+
 
 createApp({
     render: () =>
